@@ -1,22 +1,22 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>WebComponents - Custom Element</title>
-    </head>
-    <body>
-        <script>
-			document.registerElement('custom-input', {
-              extends: 'input',
-			  prototype: Object.create(HTMLInputElement.prototype, {
-                            createdCallback: {
-                                value: function() {
-                                    this.value = this.getAttribute('default-value');
-                                }
-                            }
-                        })
-			});
-        </script>
-        <input is="custom-input" default-value="Hello World" />
-    </body>
+<head>
+    <meta charset="utf-8">
+    <title>WebComponents - Custom Element</title>
+</head>
+<body>
+    <script>
+        document.registerElement('custom-input', {
+            extends: 'input',
+            prototype: Object.create(HTMLInputElement.prototype, {
+                createdCallback: {
+                    value: function() {
+                        this.value = this.getAttribute('default-value');
+                    }
+                }
+            })
+        });
+    </script>
+    <input is="custom-input" default-value="Hello World" />
+</body>
 </html>

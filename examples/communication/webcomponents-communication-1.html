@@ -1,48 +1,48 @@
 <!doctype html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>WebComponents - Communication between Web Components</title>
-        <template id="myTemplate">
-            <button class="showButton">Afficher le texte</button>
-            <button class="hideButton">Masquer le texte</button>
-        </template>
-        <style type="text/css">
-            #myMessage {
-                display: none;
-            }
-        </style>
-    </head>
-    <body>
-        <script>
-			var myComponent = document.registerElement('my-component', {
-			     prototype: Object.create(HTMLElement.prototype, {
-                            createdCallback: {
-                                value: function() {
-                                    var t = document.getElementById('myTemplate');
-                                    var clone = t.content.cloneNode(true);
-                                    clone.querySelector('.showButton').addEventListener('click', function(e) {
-                                        this.dispatchEvent(new Event('show-message'));
-                                    });
-                                    clone.querySelector('.hideButton').addEventListener('click', function(e) {
-                                        this.dispatchEvent(new Event('hide-message'));
-                                    });
-                                    this.createShadowRoot().appendChild(clone);
-                                }
-                            }
-                        })
-			});
+<head>
+    <meta charset="utf-8">
+    <title>WebComponents - Communication between Web Components</title>
+    <template id="myTemplate">
+        <button class="showButton">Afficher le texte</button>
+        <button class="hideButton">Masquer le texte</button>
+    </template>
+    <style type="text/css">
+        #myMessage {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        var myComponent = document.registerElement('my-component', {
+            prototype: Object.create(HTMLElement.prototype, {
+                createdCallback: {
+                    value: function() {
+                        var t = document.getElementById('myTemplate');
+                        var clone = t.content.cloneNode(true);
+                        clone.querySelector('.showButton').addEventListener('click', function(e) {
+                            this.dispatchEvent(new Event('show-message'));
+                        });
+                        clone.querySelector('.hideButton').addEventListener('click', function(e) {
+                            this.dispatchEvent(new Event('hide-message'));
+                        });
+                        this.createShadowRoot().appendChild(clone);
+                    }
+                }
+            })
+        });
 
-            document.addEventListener('show-message', function (event) {
-                document.getElementById('myMessage').style.display = "block";
-            }, true);
+        document.addEventListener('show-message', function (event) {
+            document.getElementById('myMessage').style.display = "block";
+        }, true);
 
-            document.addEventListener('hide-message', function (event) {
-                document.getElementById('myMessage').style.display = "none";
-            }, true);
+        document.addEventListener('hide-message', function (event) {
+            document.getElementById('myMessage').style.display = "none";
+        }, true);
 
-        </script>
-        <my-component></my-component>
-        <p id="myMessage">Hello World</p>
-    </body>
+    </script>
+    <my-component></my-component>
+    <p id="myMessage">Hello World</p>
+</body>
 </html>
