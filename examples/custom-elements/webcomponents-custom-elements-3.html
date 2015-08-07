@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>WebComponents - Custom Element</title>
+        <template id="myTemplate">
+            <style>
+                .name { text-decoration: underline; }
+            </style>
+            <p>Hello <span class="name"></span> !</p>
+        </template>
+    </head>
+    <body>
+        <script>
+			document.registerElement('my-component', {
+			  prototype: Object.create(HTMLElement.prototype, {
+                            createdCallback: {
+                                value: function() {
+                                    var t = document.getElementById('myTemplate');
+                                    var clone = t.content.cloneNode(true);
+                                    clone.querySelector('.name').innerHTML = this.getAttribute('value');
+                                    this.createShadowRoot().appendChild(clone);
+                                }
+                            }
+                        })
+			});
+        </script>
+        <my-component value="Joe"></my-component>
+        <my-component value="Bob"></my-component>
+    </body>
+</html>

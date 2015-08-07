@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>WebComponents - Custom Element</title>
+    </head>
+    <body>
+        <script>
+        	var xComponentPrototype = Object.create(HTMLElement.prototype);
+            xComponentPrototype.createdCallback = function() {
+
+                var shadow = this.createShadowRoot();
+
+                var link = document.createElement('a');
+                link.href = "#";
+                link.innerText = "Hello World";
+                shadow.appendChild(link);
+
+                link.addEventListener('click', function(e) {
+                    alert('This is the World');
+                });
+            };
+
+			var XComponent = document.registerElement('x-component', {
+			  prototype: xComponentPrototype
+			});
+        	var xComponentInstance = new XComponent();
+        	document.body.appendChild(xComponentInstance);
+        </script>
+    </body>
+</html>

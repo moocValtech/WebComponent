@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>WebComponents - Communication between Web Components</title>
+        <template id="myTemplate">
+            <style>
+                #myMessage {
+                    display: none;
+                }
+            </style>
+            <p id="myMessage">Hello World</p>
+        </template>
+    </head>
+    <body>
+        <button class="showButton">Afficher le texte</button>
+        <button class="hideButton">Masquer le texte</button>
+        <my-component is-visible="false"></my-component>
+        <script>
+            var myComponentPrototype = Object.create(HTMLElement.prototype, {
+                            createdCallback: {
+                                value: function() {
+                                    var t = document.getElementById('myTemplate');
+                                    var clone = t.content.cloneNode(true);
+                                    this.createShadowRoot().appendChild(clone);
+                                }
+                            }
+                        });
+            myComponentPrototype.showMessage = function() {
+                this.shadowRoot.querySelector('#myMessage').style.display = "block";
+            };
+            myComponentPrototype.hideMessage = function() {
+                this.shadowRoot.querySelector('#myMessage').style.display = "none";
+            };
+            var myComponent = document.registerElement('my-component', {
+                 prototype: myComponentPrototype
+            });
+
+            document.querySelector('.showButton').addEventListener('click', function(e) {
+                document.querySelector('my-component').showMessage();
+            });
+
+            document.querySelector('.hideButton').addEventListener('click', function(e) {
+                document.querySelector('my-component').hideMessage();
+            });
+
+        </script>
+    </body>
+</html>
