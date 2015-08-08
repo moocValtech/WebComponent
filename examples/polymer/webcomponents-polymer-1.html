@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <title>Polymer - Créer un nouvel élement</title>
+  </head>
+  <body>
+    <dom-module id="hello-world-element">
+      <template>
+        <p>Hello World</p>
+      </template>
+      <script>
+        HTMLImports.whenReady(function () {
+          Polymer({
+            is: 'hello-world-element'
+          });
+        });
+      </script>
+    </dom-module>
+    <hello-world-element></hello-world-element>
+  </body>
+</html>

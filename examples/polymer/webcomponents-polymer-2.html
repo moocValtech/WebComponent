@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <title>Polymer - Etendre un élement existant</title>
+  </head>
+  <body>
+    <dom-module id="my-button">
+      <script>
+        HTMLImports.whenReady(function () {
+          Polymer({
+            is: 'my-button',
+            extends: 'button',
+            created: function() {
+              this.style.border = '1px solid green';
+              this.textContent = "OK";
+            }
+          });
+        });
+      </script>
+    </dom-module>
+    <button is="my-button">Hello</button>
+  </body>
+</html>
