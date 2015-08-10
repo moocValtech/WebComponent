@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Web Components - Etendre nouvel élement existant en Vanilla JS</title>
+  </head>
+  <body>
+    <script>
+      document.registerElement('my-button', {
+          extends: 'button',
+          prototype: Object.create(HTMLInputElement.prototype, {
+              createdCallback: {
+                  value: function() {
+                      this.style.border = '2px solid blue';
+                      this.textContent = "OK";
+                  }
+              }
+          })
+      });
+    </script>
+    <button is="my-button">Hello</button>
+  </body>
+</html>

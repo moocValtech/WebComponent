@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="bower_components/polymer/polymer.html">
-    <title>Polymer - Etendre un élement existant</title>
+    <title>Web Components - Etendre nouvel élement existant avec Polymer</title>
   </head>
   <body>
     <dom-module id="my-button">
@@ -14,7 +14,7 @@
             is: 'my-button',
             extends: 'button',
             created: function() {
-              this.style.border = '1px solid green';
+              this.style.border = '2px solid blue';
               this.textContent = "OK";
             }
           });

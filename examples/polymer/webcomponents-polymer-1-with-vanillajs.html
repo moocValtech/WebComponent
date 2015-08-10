@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Web Components - Créer un nouvel élement en Vanilla JS</title>
+    <template id="myTemplate">
+      <p>Hello World</p>
+    </template>
+  </head>
+  <body>
+    <script>
+        document.registerElement('hello-world-element', {
+           prototype: Object.create(HTMLElement.prototype, {
+                createdCallback: {
+                    value: function() {
+                        var t = document.getElementById('myTemplate');
+                        var clone = t.content.cloneNode(true);
+                        this.createShadowRoot().appendChild(clone);
+                    }
+                }
+              })
+        });
+    </script>
+    <hello-world-element></hello-world-element>
+  </body>
+</html>
