@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <title>WebComponents - Polymer - Single property observer</title>
+</head>
+<body>
+    <dom-module id="my-element">
+        <style>
+          .highlight {
+            background: yellow;
+          }
+        </style>
+        <template>
+          <span id="content">My element content</span>
+        </template>
+        <script>
+            Polymer({
+
+              is: 'my-element',
+
+              properties: {
+                highlight: {
+                  type: Boolean,
+                  observer: "_highlightChanged",
+                }
+              },
+
+              _highlightChanged: function(newValue, oldValue) {
+                if (newValue === true) {
+                  this.$.content.classList.add('highlight');
+                } else {
+                  this.$.content.classList.remove('highlight');
+                }
+              }
+
+            });
+        </script>
+    </dom-module>
+    <p>
+      <button onClick="document.getElementById('myElement').setAttribute('highlight', '')">On</button>
+      <button onClick="document.getElementById('myElement').removeAttribute('highlight')">Off</button>
+    </p>
+    <my-element id="myElement"></my-element>
+</body>
+</html>
