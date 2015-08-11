@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <title>WebComponents - Manipuler le Shadow DOM avec Polymer</title>
+</head>
+<body>
+    <dom-module id="hello-component">
+        <style>
+            #name { text-decoration: underline; }
+        </style>
+        <template>
+           <p>Hello <span id="name"></span> !</p>
+        </template>
+        <script>
+            Polymer({
+
+              is: 'hello-component',
+
+              properties: {
+                name: String
+              },
+
+              ready: function() {
+                Polymer.dom(this.root).querySelector("#name").textContent = this.name;
+                // ou 
+                // this.$.name.textContent = this.name; // this.$ est un tableau contenant une reference vers tous les elements contenant un id dans le template
+                // ou 
+                // this.$$("#name").textContent = this.name; // this.$$ permet de rechercher des éléments dans le DOM local
+              }
+
+            });
+        </script>
+    </dom-module>
+    <hello-component name="Joe"></hello-component>
+    <hello-component name="Bob"></hello-component>
+</body>
+</html>
