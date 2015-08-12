@@ -1,0 +1,62 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <title>WebComponents - Polymer Behaviors</title>
+</head>
+<body>
+    <dom-module id="my-element">
+        <style>
+          :host {
+            padding: 5px;
+            border: black 1px solid;
+            cursor: pointer;
+          }
+          :host(.highlight) span {
+            background: yellow;
+          }
+        </style>
+        <template>
+          <span>{{data}}</span>
+        </template>
+        <script>
+            HighlightBehavior = {
+              properties: {
+                highlight: {
+                  type: Boolean,
+                  value: false,
+                  notify: true,
+                  observer: "_highlightChanged"
+                }
+              },
+            
+              listeners: {
+                click: '_toggleHighlight'
+              },
+
+              _toggleHighlight: function() {
+                this.highlight = !this.highlight;
+              },
+
+              _highlightChanged: function(newValue) {
+                 this.toggleClass('highlight', newValue);
+              }
+            };
+
+            Polymer({
+              properties: {
+                data: {
+                  type: String
+                }
+              },
+              is: 'my-element',
+              behaviors: [HighlightBehavior]
+
+            });
+        </script>
+    </dom-module>
+    <my-element data="Contenu de mon élément"></my-element>
+</body>
+</html>
