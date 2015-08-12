@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="bower_components/moment/min/moment-with-locales.min.js"></script>
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <title>WebComponents - Data binding avec Polymer</title>
+</head>
+<body>
+    <dom-module id="customer-element">
+        <style>
+          label {
+            font-weight: bold;
+            width: 200px;
+            display: inline-block;
+          }
+        </style>
+        <template>
+          <h2>Client #<span>{{clientId}}</span> - <span>{{fullName}}</span></h2>
+          <p><label>Nouveau Client : </label><span id="isNew"></span></p>
+          <p><label>Date d'inscription : </label><span id="registrationDate"></span></p>
+          <p><label>Nom : </label><span>{{firstName}}</span></p>
+          <p><label>Prénom : </label><span>{{lastName}}</span></p>
+        </template>
+        <script>
+            moment.locale('fr');
+            Polymer({
+
+              is: 'customer-element',
+
+              properties: {
+                clientId: {
+                  type: Number,
+                  readonly: true
+                },
+                firstName: {
+                  type: String
+                },
+                lastName: {
+                  type: String,
+                  value: ""
+                },
+                isNew: {
+                  type: Boolean
+                },
+                registrationDate: {
+                  type: Date,
+                  value: new Date()
+                },
+                fullName: {
+                  type: String,
+                  computed: 'getFullName(firstName, lastName)'
+                }
+              },
+
+              getFullName: function(firstName, lastName) {
+                return firstName + ' ' + lastName.toUpperCase();
+              },
+
+              attached: function() {
+                this.$.isNew.textContent = this.isNew ? "Oui" : "Non";
+                this.$.registrationDate.textContent = moment(this.registrationDate).format('Do MMMM YYYY');
+              }
+
+            });
+        </script>
+    </dom-module>
+    <customer-element client-id="1" first-name="Joe" last-name="Fox" is-new registration-date="2015-01-02"></customer-element>
+    <customer-element client-id="2" first-name="Bob" last-name="Marx" registration-date="2015-05-03"></customer-element>
+    <customer-element client-id="3" first-name="Andy" last-name="Cole"></customer-element>
+</body>
+</html>
