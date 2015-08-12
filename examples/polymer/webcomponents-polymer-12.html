@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <title>WebComponents - Array selector avec Polymer</title>
+</head>
+<body>
+    <dom-module id="customers-list">
+        <template>
+          <h2>Liste des clients :</h2>
+          <template is="dom-repeat" id="customersList" items="{{customers}}">
+            <p>#<span>{{index}}</span></p>
+            <p><span>{{item.firstName}}</span> <span>{{item.lastName}}</span></p>
+            <p><button on-click="toggleSelection">Sélectionner / Désélectionner</button></p>
+          </template>
+
+          <array-selector id="customersSelector" items="{{customers}}" selected="{{selected}}" multi toggle></array-selector>
+
+          <h2>Liste des clients sélectionnés :</h2>
+          <ul>
+            <template is="dom-repeat" items="{{selected}}">
+              <li><span>{{item.firstName}}</span> <span>{{item.lastName}}</span></li>
+            </template>
+          </ul>
+
+        </template>
+        <script>
+            Polymer({
+
+              is: 'customers-list',
+
+              ready: function() {
+                this.customers = [
+                    {
+                      firstName: 'Joe', 
+                      lastName: 'Fox'
+                    },
+                    {
+                      firstName: 'Bob', 
+                      lastName: 'Marx'
+                    },
+                    {
+                      firstName: 'Andy', 
+                      lastName: 'Cole'
+                    }
+                ];
+              },
+
+              toggleSelection: function(e) {
+                var item = this.$.customersList.itemForElement(e.target);
+                this.$.customersSelector.select(item);
+              }
+
+            });
+        </script>
+    </dom-module>
+    <customers-list></customers-list>
+</body>
+</html>
