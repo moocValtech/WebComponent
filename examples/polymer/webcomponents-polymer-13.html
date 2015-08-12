@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="bower_components/polymer/polymer.html">
+    <title>WebComponents - Conditional template avec Polymer</title>
+</head>
+<body>
+    <dom-module id="customers-list">
+        <template>
+          <h2>Liste des clients :</h2>
+          <template is="dom-repeat" items="{{customers}}">
+            <p>#<span>{{index}}</span></p>
+            <p><span>{{item.firstName}}</span> <span>{{item.lastName}}</span></p>
+            <template is="dom-if" if="{{item.isNew}}">
+               [Nouveau]
+            </template>
+          </template>
+        </template>
+        <script>
+            Polymer({
+
+              is: 'customers-list',
+
+              ready: function() {
+                this.customers = [
+                    {
+                      firstName: 'Joe', 
+                      lastName: 'Fox',
+                      isNew: true
+                    },
+                    {
+                      firstName: 'Bob', 
+                      lastName: 'Marx'
+                    },
+                    {
+                      firstName: 'Andy', 
+                      lastName: 'Cole',
+                      isNew: true
+                    }
+                ];
+              },
+            });
+        </script>
+    </dom-module>
+    <customers-list></customers-list>
+</body>
+</html>
